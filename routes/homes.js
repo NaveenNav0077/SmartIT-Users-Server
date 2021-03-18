@@ -12,22 +12,6 @@ router.route('/')
 })
 
 //Read all my homes 
-.get(
-    VerifyUser,
-    async (req,res)=>{
-    const { userId } = await req.body;
-    User.findById({ _id:userId },async (err,result)=>{
-        if(err){
-            Response(res,400,'no-token','Error occured during getting all homes','no-result',err);
-        } else {
-            if( result!==undefined && result!==null ){
-                Response(res,200,'no-token','Home readed sucessfuly',result.homes,'');
-            } else {
-                Response(res,400,'no-token','No home found','no-result',err);
-            }    
-        }    
-    });
-})
 
 //Create a new home
 .post(
@@ -68,6 +52,24 @@ router.route('/')
         }   
     });
 });
+
+router.get(
+    '/userId/:userId',
+    VerifyUser,
+    async (req,res)=>{
+    const { userId } = req.params;
+    User.findById({ _id:userId },async (err,result)=>{
+        if(err){
+            Response(res,400,'no-token','Error occured during getting all homes','no-result',err);
+        } else {
+            if( result!==undefined && result!==null ){
+                Response(res,200,'no-token','Home readed sucessfuly',result.homes,'');
+            } else {
+                Response(res,400,'no-token','No home found','no-result',err);
+            }    
+        }    
+    });
+})
 
 router.get(
     '/findOne',
