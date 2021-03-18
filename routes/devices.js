@@ -12,20 +12,7 @@ router.route('/')
 })
 
 //Read all my devices
-.get(VerifyUser,async (req,res)=>{
-    const { userId } = await req.body;
-    User.findById( { _id:userId },async (err,result)=>{
-        if(err){
-            Response(res,400,'no-token','No device found','no-result',err);
-        } else {
-            if( result!==undefined && result!==null ){
-                Response(res,200,'no-token','Devices readed sucessfuly',result.devices,'');
-            } else {
-                Response(res,400,'no-token','No device found','no-result',err);
-            }   
-        }    
-    });
-})
+
 
 //Create a new device
 .post(
@@ -99,6 +86,24 @@ router.route('/')
 
     });
 });
+
+router.get(
+    '/userId/:userId',
+    VerifyUser,
+    async (req,res)=>{
+    const { userId } = req.params;
+    User.findById( { _id:userId },async (err,result)=>{
+        if(err){
+            Response(res,400,'no-token','No device found','no-result',err);
+        } else {
+            if( result!==undefined && result!==null ){
+                Response(res,200,'no-token','Devices readed sucessfuly',result.devices,'');
+            } else {
+                Response(res,400,'no-token','No device found','no-result',err);
+            }   
+        }    
+    });
+})
 
 //Edit a particular device
 router.put(

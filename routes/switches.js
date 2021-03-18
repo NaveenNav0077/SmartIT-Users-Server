@@ -11,27 +11,6 @@ router.route('/')
     next();
 })
 
-//Read all my devices
-.get(
-    VerifyUser,
-    async (req,res)=>{
-    const { userId, deviceId } = await req.body;
-    User.findById({ _id:userId } ,async (err,result)=>{
-        if(err){
-            Response(res,400,'no-token','User not found','no-result',err);
-        } else {
-            if( result!==undefined && result!==null ){
-                const data = await result.devices.id(deviceId);
-                if( data !== null ){
-                    Response(res,200,'no-token','Devices readed sucessfuly',data.switchs ,'');  
-                } else {
-                    Response(res,400,'no-token','devices not found','no-result',err);
-                }         
-            }
-        }
-    });
-})
-
 //Create a new device
 .post(
     VerifyUser,
@@ -112,6 +91,29 @@ router.route('/')
         }
     });
 });
+
+
+//Read all my devices
+router.get(
+    '/userId/:userId/deviceId/:deviceId/',
+    VerifyUser,
+    async (req,res)=>{
+    const { userId, deviceId } = req.params;
+    User.findById({ _id:userId } ,async (err,result)=>{
+        if(err){
+            Response(res,400,'no-token','User not found','no-result',err);
+        } else {
+            if( result!==undefined && result!==null ){
+                const data = await result.devices.id(deviceId);
+                if( data !== null ){
+                    Response(res,200,'no-token','Devices readed sucessfuly',data.switchs ,'');  
+                } else {
+                    Response(res,400,'no-token','devices not found','no-result',err);
+                }         
+            }
+        }
+    });
+})
 
 router.get('/findone',VerifyUser,async (req,res)=>{
     const { userId, deviceId, switchId } = await req.body;
