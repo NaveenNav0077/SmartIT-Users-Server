@@ -12,6 +12,10 @@ const switchSchema = new mongoose.Schema({
   roomName:{
     type:String,
     required:true,
+  },
+  switchStatus:{
+    type:Boolean,
+    default:false
   }
 });
 
