@@ -16,6 +16,10 @@ const switchSchema = new mongoose.Schema({
   switchStatus:{
     type:Boolean,
     default:false
+  },
+  switchIcon:{
+    type:String,
+    require:true
   }
 });
 

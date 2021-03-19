@@ -24,7 +24,7 @@ router.route('/')
     }),
     errors(),
     async (req,res)=>{
-    const { userId, deviceId,  switchName, roomName  } = await req.body;
+    const { userId, deviceId,  switchName, roomName, switchIcon  } = await req.body;
     User.findById( { _id:userId } ,async (err,result)=>{
         if(err){
             Response(res,400,'no-token','User not found','no-result',err);
@@ -33,7 +33,7 @@ router.route('/')
             if( result!==undefined && result !== null ){
                 if(result.devices.id(deviceId)!==null){
                     const No = result.devices.id(deviceId).switchs.length + 1;
-                    result.devices.id(deviceId).switchs.push({ switchNo:No, switchName, roomName });
+                    result.devices.id(deviceId).switchs.push({ switchNo:No, switchName, roomName, switchIcon });
                     result.save((err, result)=>{
                         if(err){
                             Response(res,400,'no-token','Error occured while creating new switch ',err);
