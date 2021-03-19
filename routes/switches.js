@@ -20,6 +20,7 @@ router.route('/')
             deviceId:Joi.string().required(),
             switchName:Joi.string().required(),
             roomName:Joi.string().required(),
+            switchIcon:Joi.string().required(),
         })
     }),
     errors(),
