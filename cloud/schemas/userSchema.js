@@ -26,21 +26,16 @@ const switchSchema = new mongoose.Schema({
 const deviceSchema = new mongoose.Schema({
   homeName:{
     type:String,
-    required:true,
   },
   deviceName:{
-    type:String,
-    required:true,
-    unique:true
+    type:String
   },
   switchs:[switchSchema]
 });
 
 const homeSchema = new mongoose.Schema({
     homeName:{
-        type:String,
-        required:true,
-        unique:true
+        type:String
     },
     homeImage:{
         type:String
