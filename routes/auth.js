@@ -74,6 +74,7 @@ router.post(
           Response(res,400,'no-token','Error occured while finding user','no-result',err);
         } else {
           if(result){
+            console.log(result)
             if(result.password === password){
               await jwt.sign({ password:req.body.password }, process.env.SECRET_KEY, (tokenErr, token)=>{
                 if(tokenErr){
